@@ -1,3 +1,7 @@
+## Known issues:
+- Encrypted keystrokes work only on ```C-U0007``` dongles with firmware ```012.001.00019``` and prior, dongles on ```012.010.00032``` **are rejecting** these keystrokes
+    - See https://github.com/bilogic/logitech-unifying-device/issues/1
+
 # Library to build Logitech Unifying compatible devices
 I have always wanted an 84 key standard layout, wireless, mechanical keyboard with RGB backlight and rotary knobs plus media control buttons near the spacebar. Anyway, it did not take long for me to realize that bluetooth keyboards are notoriously unreliable, intermittently disconnecting every so often. However, Unifying ones are much better.
 
@@ -21,7 +25,3 @@ I never planned to publish this code, thus it is not the cleanest. But since I'm
 - Open ```logitech-unifying-device.code-workspace``` in VSCode with PlatformIO installed
 - Press ```ctrl + alt + u``` to compile
 - If it is your first time using PlatformIO, **wait** until the icon appears on the activity bar at the left of VSCode before compiling, it should just work
-
-## Known issues:
-- Encrypted keystrokes **are not accepted** by the latest firmware ```012.010.00032``` for ```C-U0007``` dongles
-    - See https://github.com/bilogic/logitech-unifying-device/issues/1
