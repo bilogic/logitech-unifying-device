@@ -1,4 +1,4 @@
-## Known issues:
+## Help needed/Known issues:
 - Encrypted keystrokes work only on ```C-U0007``` dongles with firmware ```012.001.00019``` and prior, dongles on ```012.010.00032``` **are rejecting** these keystrokes
     - If you can help, see https://github.com/bilogic/logitech-unifying-device/issues/1
 
