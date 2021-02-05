@@ -13,13 +13,13 @@ I never planned to publish this code, thus it is not the cleanest. But since I'm
 - Code to perform AES ECB mode, will gladly attribute it if someone knows its origin
 
 ## Hardware
-- Logitech ```C-U0007``` dongle with firmware ```012.001.00019```, newer versions do something to reject keystrokes.
-- ESP8266 and NRF24L01+, connect them as follows:
-  - WEMOS D1 mini D3 <-> NRF24L01+ CS
-  - WEMOS D1 mini D4 <-> NRF24L01+ CE
-  - WEMOS D1 mini D5 <-> NRF24L01+ SCK
-  - WEMOS D1 mini D6 <-> NRF24L01+ MISO
-  - WEMOS D1 mini D7 <-> NRF24L01+ MOSI
+- Logitech ```C-U0007``` dongle with firmware ```012.001.00019```, dongles with newer firmware are doing something to reject our keystrokes.
+- ESP8266, NRF24L01+ and a 5v power board for the NRF24L01+ module, connect them as follows:
+  - WEMOS D1 mini D3 <-> power board CS
+  - WEMOS D1 mini D4 <-> power board CE
+  - WEMOS D1 mini D5 <-> power board SCK
+  - WEMOS D1 mini D6 <-> power board MISO
+  - WEMOS D1 mini D7 <-> power board MOSI
 
 ## Software
 - Open ```logitech-unifying-device.code-workspace``` in VSCode with PlatformIO installed
