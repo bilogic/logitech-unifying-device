@@ -20,6 +20,8 @@ I never planned to publish this code, thus it is not the cleanest. But since I'm
   - WEMOS D1 mini D5 <-> power board SCK
   - WEMOS D1 mini D6 <-> power board MISO
   - WEMOS D1 mini D7 <-> power board MOSI
+  - WEMOS D1 mini 5V <-> power board VCC
+  - WEMOS D1 mini GND <-> power board GND
 
 ## Software
 - Open ```logitech-unifying-device.code-workspace``` in VSCode with PlatformIO installed
