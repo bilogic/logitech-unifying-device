@@ -12,6 +12,11 @@ I never planned to publish this code, thus it is not the cleanest. But since I'm
 - RoganDawes and Marcus Meng https://github.com/RoganDawes/LOGITacker/issues/55
 - Code to perform AES ECB mode, will gladly attribute it if someone knows its origin
 
+## Compatibility
+- Working up to 012.010.00019
+- Working up to 024.001.00023
+- Does not work with 012.010.00032
+
 ## Hardware
 - Logitech ```C-U0007``` dongle with firmware ```012.001.00019```, dongles with newer firmware are doing something to reject our keystrokes.
 - ESP8266, NRF24L01+ and a 5v power board for the NRF24L01+ module, connect them as follows:
