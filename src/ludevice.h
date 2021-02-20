@@ -166,8 +166,8 @@ private:
     uint8_t protocol = LOGITACKER_DEVICE_PROTOCOL_UNIFYING;         // unifying
     uint8_t device_type = LOGITACKER_DEVICE_UNIFYING_TYPE_KEYBOARD; // 1
     uint8_t caps =
-        LOGITACKER_DEVICE_CAPS_LINK_ENCRYPTION | // 0001, 1
-        // LOGITACKER_DEVICE_CAPS_BATTERY_STATUS |   // 0010, 2
+        LOGITACKER_DEVICE_CAPS_LINK_ENCRYPTION |     // 0001, 1
+        LOGITACKER_DEVICE_CAPS_BATTERY_STATUS |      // 0010, 2
         LOGITACKER_DEVICE_CAPS_UNIFYING_COMPATIBLE | // 0100, 4
         LOGITACKER_DEVICE_CAPS_UNKNOWN1 |            // 1000, 8
         0;
@@ -186,7 +186,7 @@ private:
     uint8_t pairing_packet_1[22] = {
         0xF0,
         LOGITACKER_DEVICE_REPORT_TYPES_PAIRING | LOGITACKER_DEVICE_REPORT_TYPES_KEEP_ALIVE,
-        0x01,
+        0x01,                          // step 1
         0xfa, 0xde, 0x11, 0x11, 0x07,  // rfaddress
         keep_alive,                    // default keep_alive
         ((device_wpid & 0xff00) >> 8), // wireless PID MSB
@@ -200,7 +200,7 @@ private:
 
     uint32_t nonce = 0xDF850991;
     uint32_t serial = 0xA58094B6; // K270
-    uint32_t rt =
+    uint32_t report_types =
         LOGITACKER_DEVICE_REPORT_TYPES_KEYBOARD |
         // LOGITACKER_DEVICE_REPORT_TYPES_MOUSE |
         LOGITACKER_DEVICE_REPORT_TYPES_MULTIMEDIA |
@@ -209,37 +209,41 @@ private:
         LOGITACKER_DEVICE_REPORT_TYPES_KEYBOARD_LED |
         // LOGITACKER_DEVICE_REPORT_TYPES_SHORT_HIDPP |
         // LOGITACKER_DEVICE_REPORT_TYPES_LONG_HIDPP |
+        // LOGITACKER_DEVICE_REPORT_TYPES_ENCRYPTED_KEYBOARD |
+        // LOGITACKER_DEVICE_REPORT_TYPES_ENCRYPTED_HIDPP_LONG |
         0;
 
     uint8_t pairing_packet_2_bis[5] = {
         0x00,
         LOGITACKER_DEVICE_REPORT_TYPES_KEEP_ALIVE,
-        0x02, 0x01,
+        0x02,
+        0x12,
         0xbd};
     uint8_t pairing_packet_2[22] = {
         0x00,
         LOGITACKER_DEVICE_REPORT_TYPES_PAIRING | LOGITACKER_DEVICE_REPORT_TYPES_KEEP_ALIVE,
-        0x02,
-        ((nonce & 0xff000000) >> 24),  // device nonce MSB
-        ((nonce & 0x00ff0000) >> 16),  // device nonce
-        ((nonce & 0x0000ff00) >> 8),   // device nonce
-        ((nonce & 0x000000ff) >> 0),   // device nonce LSB
-        ((serial & 0xff000000) >> 24), // device serial MSB
-        ((serial & 0x00ff0000) >> 16), // device serial
-        ((serial & 0x0000ff00) >> 8),  // device serial
-        ((serial & 0x000000ff) >> 0),  // device serial LSB
-        ((rt & 0x000000ff) >> 0),      // device report types
-        ((rt & 0x0000ff00) >> 8),      // device report types
-        ((rt & 0x00ff0000) >> 16),     // device report types
-        ((rt & 0xff000000) >> 24),     // device report types
-        0x02,                          // device_usability_info
+        0x02,                                                                         // step 2
+        ((nonce & 0xff000000) >> 24),                                                 // device nonce MSB
+        ((nonce & 0x00ff0000) >> 16),                                                 // device nonce
+        ((nonce & 0x0000ff00) >> 8),                                                  // device nonce
+        ((nonce & 0x000000ff) >> 0),                                                  // device nonce LSB
+        ((serial & 0xff000000) >> 24),                                                // device serial MSB
+        ((serial & 0x00ff0000) >> 16),                                                // device serial
+        ((serial & 0x0000ff00) >> 8),                                                 // device serial
+        ((serial & 0x000000ff) >> 0),                                                 // device serial LSB
+        ((report_types & 0x000000ff) >> 0),                                           // device report types
+        ((report_types & 0x0000ff00) >> 8),                                           // device report types
+        ((report_types & 0x00ff0000) >> 16),                                          // device report types
+        ((report_types & 0xff000000) >> 24),                                          // device report types
+        LOGITACKER_DEVICE_USABILITY_INFO_PS_LOCATION_ON_THE_EDGE_OF_TOP_RIGHT_CORNER, // device_usability_info
         0x00, 0x00, 0x00, 0x00, 0x00,
         0x79};
 
     uint8_t pairing_packet_3_bis[5] = {
         0x00,
         LOGITACKER_DEVICE_REPORT_TYPES_KEEP_ALIVE,
-        0x03, 0x01,
+        0x03,
+        0x01,
         0x0f};
     uint8_t pairing_packet_3[22] = {
         0x00,
@@ -253,7 +257,7 @@ private:
     uint8_t pairing_packet_4[10] = {
         0x00,
         LOGITACKER_DEVICE_REPORT_TYPES_SET_KEEP_ALIVE | LOGITACKER_DEVICE_REPORT_TYPES_KEEP_ALIVE,
-        0x06,
+        0x6,
         0x01, 0x00,
         0x00, 0x00, 0x00, 0x00,
         0xED};
@@ -262,9 +266,12 @@ private:
         0x00,
         LOGITACKER_DEVICE_REPORT_TYPES_SET_KEEP_ALIVE | LOGITACKER_DEVICE_REPORT_TYPES_KEEP_ALIVE, // 0x40 is device to dongle
         0x00,                                                                                      // unused
-        0x00, keep_alive,                                                                          // timeout, 00:6E is 110ms, 01:00 is 256ms, 04:B0 is 1200ms
-        0x00, 0x00, 0x00, 0x00,                                                                    // unused
-        0xEA                                                                                       // checksum
+
+        // timeout, 00:6E is 110ms, 01:00 is 256ms, 04:B0 is 1200ms
+        ((keep_alive & 0xff00) >> 8), // MSB
+        ((keep_alive & 0x00ff) >> 0), // LSB
+        0x00, 0x00, 0x00, 0x00,       // unused
+        0xEA                          // checksum
     };
     uint8_t keep_alive_packet[5] = {
         0x00,
@@ -277,6 +284,7 @@ private:
     uint8_t register1[22] = {
         0x62, // RF of device
         LOGITACKER_DEVICE_REPORT_TYPES_LONG_HIDPP | LOGITACKER_DEVICE_REPORT_TYPES_KEEP_ALIVE,
+        // LOGITACKER_DEVICE_REPORT_TYPES_ENCRYPTED_HIDPP_LONG | LOGITACKER_DEVICE_REPORT_TYPES_KEEP_ALIVE,
         0x62, // RF of device
         0x07, 0x00, 0x01, 0x01,
         0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -292,6 +300,7 @@ private:
     uint8_t hello[22] = {
         0x00,
         LOGITACKER_DEVICE_REPORT_TYPES_LONG_HIDPP | LOGITACKER_DEVICE_REPORT_TYPES_KEEP_ALIVE,
+        // LOGITACKER_DEVICE_REPORT_TYPES_ENCRYPTED_HIDPP_LONG | LOGITACKER_DEVICE_REPORT_TYPES_KEEP_ALIVE,
         0x62, // RF of device
         0x04, 0x00, 0x46, 0x14,
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,

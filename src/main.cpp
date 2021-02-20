@@ -57,8 +57,9 @@ void loop()
         // keydown
         if (!keydown)
         {
-            kespb.typee(4, 5, 6, 7, 8, 9);
-            // kespb.typep(4, 5, 6, 7, 8, 9);
+            kespb.move(0, 0, 0, 0, true, false); // left click down
+            kespb.typee(4, 5, 6, 7, 8, 9);       // encrypted payload: a, b, c, d, e, f
+            // kespb.typep(4, 5, 6, 7, 8, 9); // plain payload: a, b, c, d, e, f
             // kespb.typem(0x192, 0); // calculator
             // kespb.typem(0x183, 0); // video player
 
@@ -73,13 +74,15 @@ void loop()
         }
         else
         {
-            kespb.typep();
-            kespb.typee();
-            kespb.typem();
+            kespb.move(0, 0, 0, 0, false, false); // left click up
+            kespb.typep();                        // plain release all keys
+            kespb.typee();                        // encrypted release all keys
+            kespb.typem();                        // multimedia release all keys
             keydown = false;
             move_timer = 0;
         }
     }
+
     kespb.loop();
     return;
 
