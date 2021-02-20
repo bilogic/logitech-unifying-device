@@ -847,7 +847,7 @@ void ludevice::move(uint16_t x_move, uint16_t y_move)
 
 void ludevice::move(uint16_t x_move, uint16_t y_move, bool leftClick, bool rightClick)
 {
-    move(x_move, y_move, 0, 0, false, false);
+    move(x_move, y_move, 0, 0, leftClick, rightClick);
 }
 
 void ludevice::move(uint16_t x_move, uint16_t y_move, uint8_t scroll_v, uint8_t scroll_h)
