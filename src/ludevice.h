@@ -185,7 +185,7 @@ private:
     // [CH: 17]  BB:0A:DC:A5:75  05 5F 01 49 16 90 09 F2 14 40 03 04 00 01 0D 00 00 00 00 00 2A 1E (22 bytes)
     uint8_t pairing_packet_1[22] = {
         0xF0,
-        0x1F | LOGITACKER_DEVICE_REPORT_TYPES_KEEP_ALIVE,
+        LOGITACKER_DEVICE_REPORT_TYPES_PAIRING | LOGITACKER_DEVICE_REPORT_TYPES_KEEP_ALIVE,
         0x01,
         0xfa, 0xde, 0x11, 0x11, 0x07,  // rfaddress
         keep_alive,                    // default keep_alive
@@ -218,7 +218,7 @@ private:
         0xbd};
     uint8_t pairing_packet_2[22] = {
         0x00,
-        0x1F | LOGITACKER_DEVICE_REPORT_TYPES_KEEP_ALIVE,
+        LOGITACKER_DEVICE_REPORT_TYPES_PAIRING | LOGITACKER_DEVICE_REPORT_TYPES_KEEP_ALIVE,
         0x02,
         ((nonce & 0xff000000) >> 24),  // device nonce MSB
         ((nonce & 0x00ff0000) >> 16),  // device nonce
@@ -243,10 +243,10 @@ private:
         0x0f};
     uint8_t pairing_packet_3[22] = {
         0x00,
-        0x1F | LOGITACKER_DEVICE_REPORT_TYPES_KEEP_ALIVE, // 0x40 is device to dongle
-        0x03,                                             // step 3
-        0x1,                                              // number of reports fixed to 1
-        0x3,                                              // length of device name
+        LOGITACKER_DEVICE_REPORT_TYPES_PAIRING | LOGITACKER_DEVICE_REPORT_TYPES_KEEP_ALIVE, // 0x40 is device to dongle
+        0x03,                                                                               // step 3
+        0x1,                                                                                // number of reports fixed to 1
+        0x3,                                                                                // length of device name
         65, 66, 67, 0, 0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
         0xB6};
 
@@ -261,10 +261,10 @@ private:
     uint8_t keep_alive_change_packet[10] = {
         0x00,
         LOGITACKER_DEVICE_REPORT_TYPES_SET_KEEP_ALIVE | LOGITACKER_DEVICE_REPORT_TYPES_KEEP_ALIVE, // 0x40 is device to dongle
-        0x00,                                             // unused
-        0x00, keep_alive,                                 // timeout, 00:6E is 110ms, 01:00 is 256ms, 04:B0 is 1200ms
-        0x00, 0x00, 0x00, 0x00,                           // unused
-        0xEA                                              // checksum
+        0x00,                                                                                      // unused
+        0x00, keep_alive,                                                                          // timeout, 00:6E is 110ms, 01:00 is 256ms, 04:B0 is 1200ms
+        0x00, 0x00, 0x00, 0x00,                                                                    // unused
+        0xEA                                                                                       // checksum
     };
     uint8_t keep_alive_packet[5] = {
         0x00,
@@ -276,7 +276,7 @@ private:
 
     uint8_t register1[22] = {
         0x62, // RF of device
-        0x11 | LOGITACKER_DEVICE_REPORT_TYPES_KEEP_ALIVE,
+        LOGITACKER_DEVICE_REPORT_TYPES_LONG_HIDPP | LOGITACKER_DEVICE_REPORT_TYPES_KEEP_ALIVE,
         0x62, // RF of device
         0x07, 0x00, 0x01, 0x01,
         0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -291,7 +291,7 @@ private:
 
     uint8_t hello[22] = {
         0x00,
-        0x11 | LOGITACKER_DEVICE_REPORT_TYPES_KEEP_ALIVE,
+        LOGITACKER_DEVICE_REPORT_TYPES_LONG_HIDPP | LOGITACKER_DEVICE_REPORT_TYPES_KEEP_ALIVE,
         0x62, // RF of device
         0x04, 0x00, 0x46, 0x14,
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,

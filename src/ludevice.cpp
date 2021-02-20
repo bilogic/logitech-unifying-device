@@ -932,7 +932,8 @@ void ludevice::typep(uint8_t scan1, uint8_t scan2, uint8_t scan3, uint8_t scan4,
     idle_timer = 0;
 
     uint8_t key_payload[] = {
-        0x00, 0xC1,
+        0x00,
+        LOGITACKER_DEVICE_REPORT_TYPES_KEYBOARD | LOGITACKER_DEVICE_REPORT_TYPES_KEEP_ALIVE | 0x80,
         0x00, // [2] modifier
         0x00,
         0x00, // [4] scancode
@@ -1047,7 +1048,7 @@ void ludevice::logitacker_unifying_crypto_calculate_frame_key(uint8_t *ciphertex
 
 void ludevice::logitacker_unifying_crypto_encrypt_keyboard_frame(uint8_t *rf_frame, uint8_t *plain_payload, uint32_t counter)
 {
-    rf_frame[1] = 0xD3;
+    rf_frame[1] = LOGITACKER_DEVICE_REPORT_TYPES_ENCRYPTED_KEYBOARD | LOGITACKER_DEVICE_REPORT_TYPES_KEEP_ALIVE | 0x80;
     bool silent = false;
 
     uint8_t counter_bytes[4] = {0};
