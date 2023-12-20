@@ -8,13 +8,8 @@ I never planned to publish this code, thus it is not the cleanest. But since I'm
 - RoganDawes and Marcus Meng https://github.com/RoganDawes/LOGITacker/issues/55
 - Code to perform AES ECB mode, will gladly attribute it if someone knows its origin
 
-## Compatibility
-- Keystrokes A-Z working up to 012.010.00019
-- Keystrokes A-Z not working for 012.010.00032
-- Keystrokes A-Z not working for 024.001.00023
-
 ## Hardware
-- Logitech ```C-U0007``` dongle with firmware ```012.001.00019```, dongles with newer firmware are doing something to reject our keystrokes.
+- Logitech ```C-U0007``` dongle
 - ESP8266, NRF24L01+ and a 5v power board for the NRF24L01+ module, connect them as follows:
   - WEMOS D1 mini D3 <-> power board CS
   - WEMOS D1 mini D4 <-> power board CE
