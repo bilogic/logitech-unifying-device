@@ -3,13 +3,14 @@ I have always wanted an 84 key standard layout, wireless, mechanical keyboard wi
 
 I never planned to publish this code, thus it is not the cleanest. ~~But since I'm stuck, I thought someone might put it to good use and maybe figure out the problem. If you can make a more secured Unifying compatible protocol, all the better.~~
 
+### C-U0007 mitigation effort from firmware `012.010.00032` onwards
+In an effort to prevent keys injection, the receiver's firmware will reject packets that start with a full buffer of 6 keystrokes, so start by filling the buffer slowly (like a human). If you know of exactly how the receiver rejects these packets, feel free to PR a write up.
+
+
 ### Many thanks to:
 - Ronan Gaillard https://github.com/ronangaillard/logitech-mouse/issues/5
 - RoganDawes and Marcus Meng https://github.com/RoganDawes/LOGITacker/issues/55
 - Code to perform AES ECB mode, will gladly attribute it if someone knows its origin
-
-## C-U0007 mitigation effort from firmware `012.010.00032` onwards
-In an effort to prevent keys injection, the receiver's firmware will reject packets that start with a full buffer of 6 keystrokes, so start by sending packets slowly (like a human). If you know of how it is done exactly, feel free to PR a write up.
 
 ## Hardware
 - Logitech ```C-U0007``` dongle
