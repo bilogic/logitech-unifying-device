@@ -1,7 +1,7 @@
 # Library to build Logitech Unifying compatible devices
 I have always wanted an 84 key standard layout, wireless, mechanical keyboard with RGB backlight and rotary knobs plus media control buttons near the spacebar. Anyway, it did not take long for me to realize that bluetooth keyboards are notoriously unreliable, intermittently disconnecting every so often. However, Unifying ones are much better.
 
-I never planned to publish this code, thus it is not the cleanest. But since I'm stuck, I thought someone might put it to good use and maybe figure out the problem. If you can make a more secured Unifying compatible protocol, all the better.
+I never planned to publish this code, thus it is not the cleanest. ~~But since I'm stuck, I thought someone might put it to good use and maybe figure out the problem. If you can make a more secured Unifying compatible protocol, all the better.~~
 
 ### Many thanks to:
 - Ronan Gaillard https://github.com/ronangaillard/logitech-mouse/issues/5
