@@ -8,6 +8,9 @@ I never planned to publish this code, thus it is not the cleanest. But since I'm
 - RoganDawes and Marcus Meng https://github.com/RoganDawes/LOGITacker/issues/55
 - Code to perform AES ECB mode, will gladly attribute it if someone knows its origin
 
+## C-U0007 mitigation effort from firmware `012.010.00032` onwards
+In an effort to prevent keys injection, the receiver's firmware will reject packets that start with a full buffer of 6 keystrokes, so start by sending packets slowly (like a human). If you know of how it is done exactly, feel free to PR a write up.
+
 ## Hardware
 - Logitech ```C-U0007``` dongle
 - ESP8266, NRF24L01+ and a 5v power board for the NRF24L01+ module, connect them as follows:
